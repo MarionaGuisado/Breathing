@@ -1,0 +1,36 @@
+import PushNotification from 'react-native-push-notification';
+
+export const configureNotifications = () => {
+  PushNotification.configure({
+    onRegister: function (token) {
+      console.log("TOKEN:", token);
+    },
+    onNotification: function (notification) {
+      console.log("NOTIFICATION:", notification);
+    },
+    permissions: {
+      alert: true,
+      badge: true,
+      sound: true,
+    },
+    popInitialNotification: true,
+    requestPermissions: true,
+  });
+};
+
+export const scheduleMotivationalNotification = () => {
+  PushNotification.localNotificationSchedule({
+    message: "¡Sigue así! Cada hora sin fumar cuenta.",
+    date: new Date(Date.now() + 3600000), // 1 hora después
+    repeatType: 'hour',
+  });
+};
+
+export const triggerSOSNotification = () => {
+  PushNotification.localNotification({
+    title: "MODO SOS ACTIVADO",
+    message: "Respira profundamente, tú puedes con esto.",
+    playSound: true,
+    soundName: 'default',
+  });
+};
